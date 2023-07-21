@@ -87,5 +87,4 @@ public class Cell
         this._value = value;
     }
 
-    public ope
 }
