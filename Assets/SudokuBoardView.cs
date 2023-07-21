@@ -17,14 +17,9 @@ public class SudokuBoardView : MonoBehaviour
         {
             for (int col = 0; col < 9; col++)
             {
-                GameObject cell = Instantiate(cellPrefab, boardParent);
-                var cellText = cell.GetComponentInChildren<TextMeshProUGUI>();
-
-                int num = grid.BoardCells[row,col].Value;
-
-                cellText.text = (num == 0) ? "" : num.ToString();
-
-                cells[row, col] = cell;
+                var cellObj = Instantiate(cellPrefab, boardParent);
+                var cell = cellObj.GetComponent<CellPresenter>();
+                cell.Initialize(new Cell(row, col, grid.BoardCells[row, col].Value));
             }
         }
     }
