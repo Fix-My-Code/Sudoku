@@ -28,6 +28,14 @@ public class Cell
 
     private int _value;
 
+    public Cell()
+    {
+        this.x = 0;
+        this.y = 0;
+
+        this._value = 0;
+    }
+
     public Cell(int x, int y, int value)
     {
         this.x = x;

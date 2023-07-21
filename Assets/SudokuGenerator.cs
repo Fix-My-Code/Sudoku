@@ -10,9 +10,9 @@ public class SudokuGenerator
         }
         set
         {
-            if (value > 8)
+            if (value > 9)
             {
-                value -= 8;
+                value -= 9;
             }
 
             _index = value;
@@ -21,21 +21,31 @@ public class SudokuGenerator
     }
 
     private int _index;
-    private const int row = 9, col = 9;
+    private const int ROW = 9, COL = 9;
 
 
-    public void DrawBaseGrid(Cell[,] cells)
+    public Cell[,] DrawBaseGrid()
     {
+        var cells = new Cell[9, 9];
+
+        for (var row = 0; row < 9; row++)
+        {
+            for (var col = 0; col < 9; col++)
+            {
+                cells[row, col] = new Cell(row, col, 0);
+            }
+        }
+
         int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         const int shift = 3, shiftTransition = 4;
 
         Index = 0;
-        for (int i = 0; i < row; i++)
+        for (int i = 0; i < ROW; i++)
         {
-            for (int j = 0; j < col; j++)
+            for (int j = 0; j < COL; j++)
             {
                 Index++;
-                cells[i, j] = new Cell(i, j, nums[Index - 1]);   
+                cells[i, j].Value = nums[Index - 1];
             }
 
             if ((i + 1) % 3 == 0)
@@ -47,15 +57,17 @@ public class SudokuGenerator
                 Index += shift;
             }
         }
+
+        return cells;
     }
 
     public void TranspositionGrid(Cell[,] cells)
     {
-        for (int i = row; i < row + 1; i++)
+        for (int i = ROW; i < ROW + 1; i++)
         {
-            for (int j = col; j < col + 1; j++)
+            for (int j = COL; j < COL + 1; j++)
             {
-                cells[i, j] = new Cell(i, j, cells[j, i]);
+                cells[i, j].Value = cells[j, i].Value;
             }
         }
     }

@@ -12,8 +12,9 @@ public class SudokuWizard : MonoBehaviour
     [ContextMenu("Fill")]
     public void Start()
     {
-        sudokuPresenter = new SudokuPresenter();
-        _sudokuBoardView.FillGrid(sudokuPresenter.BoardGrid);
+        var generator = new SudokuGenerator();
+        var sds = generator.DrawBaseGrid();
+        _sudokuBoardView.FillGrid(new Grid(sds));
     }
 }
 
@@ -24,10 +25,9 @@ public class SudokuPresenter
 
     public SudokuPresenter()
     {
-        _boardGrid = new Grid();
-        _boardGrid.FillGrid();
+        var generator = new SudokuGenerator();
+        var grid = generator.DrawBaseGrid();
     }
-
 }
 
 public class Grid
@@ -36,29 +36,29 @@ public class Grid
 
     private Cell[,] _cells;
 
+    public Grid(Cell[,] cells)
+    {
+        _cells = cells;
+    }
+
     public Cell[,] FillGrid()
     {
-        _cells = new Cell[9,9];
+        _cells = new Cell[9, 9];
 
-
-
-
-
-
-        for(var row = 0; row < 9; row++)
+        for (var row = 0; row < 9; row++)
         {
-            for(var col = 0; col < 9; col++)
+            for (var col = 0; col < 9; col++)
             {
                 var value = UnityEngine.Random.Range(1, 10);
                 _cells[row, col] = new Cell(row, col, value);
             }
         }
-        
+
         return BoardCells;
     }
 
-    public void FillGrid(Grid grid)
+    public Grid FillGrid(Cell[,] cells)
     {
-
+        return new Grid(cells);
     }
 }
