@@ -2,8 +2,6 @@ using System;
 
 public class SudokuGenerator
 {
-    private int[,] board;
-
     public int Index
     {
         get
@@ -23,22 +21,24 @@ public class SudokuGenerator
     }
 
     private int _index;
+    private const int row = 9, col = 9;
 
-    public void DrawBaseGrid(int row, int col)
+
+    public void DrawBaseGrid(Cell[,] cells)
     {
         int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         const int shift = 3, shiftTransition = 4;
 
         Index = 0;
-        for (int i = row; i < row + 1; i++)
+        for (int i = 0; i < row; i++)
         {
-            for (int j = col; j < col + 1; j++)
+            for (int j = 0; j < col; j++)
             {
                 Index++;
-                board[i, j] = nums[Index - 1];            
+                cells[i, j] = new Cell(i, j, nums[Index - 1]);   
             }
 
-            if (row + 1 % 3 == 0)
+            if ((i + 1) % 3 == 0)
             {
                 Index += shiftTransition;
             }
@@ -48,6 +48,19 @@ public class SudokuGenerator
             }
         }
     }
+
+    public void TranspositionGrid(Cell[,] cells)
+    {
+        for (int i = row; i < row + 1; i++)
+        {
+            for (int j = col; j < col + 1; j++)
+            {
+                cells[i, j] = new Cell(i, j, cells[j, i]);
+            }
+        }
+    }
+
+
 
 
     //private Random random;

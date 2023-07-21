@@ -40,6 +40,11 @@ public class Grid
     {
         _cells = new Cell[9,9];
 
+
+
+
+
+
         for(var row = 0; row < 9; row++)
         {
             for(var col = 0; col < 9; col++)
