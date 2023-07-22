@@ -35,7 +35,7 @@ public class SudokuGenerator
         CreateGrid(cells);     
         GenerateGrid(cells);
         CleanRandomCell(cells, DIFFICULTY_BASE);
-        BlockAllFillCell(cells);
+        //BlockAllFillCell(cells);
         
         //DrawBaseGrid(cells);
         //MixGrid(cells);       
@@ -49,7 +49,7 @@ public class SudokuGenerator
         {
             for (var col = 0; col < GRID_SIZE; col++)
             {
-                cells[row, col] = new Cell(row, col, 0);
+                cells[row, col] = new Cell(row, col, 0, false);
             }
         }
     }
@@ -64,6 +64,7 @@ public class SudokuGenerator
             if (cells[row, col].Value != 0)
             {
                 cells[row, col].Value = 0;
+                cells[row, col].IsActive = true;
             }
         }
     }
