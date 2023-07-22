@@ -58,8 +58,8 @@ public class SudokuGenerator
     {
         for(int i = 0; i < difficulty; i++)
         {
-            int row = random.Next(0, 8);
-            int col = random.Next(0, 8);
+            int row = random.Next(0, 9);
+            int col = random.Next(0, 9);
 
             if (cells[row, col].Value != 0)
             {
