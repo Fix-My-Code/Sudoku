@@ -25,7 +25,7 @@ public class SudokuPresenter
     public SudokuPresenter()
     {
         var generator = new SudokuGenerator();
-        var grid = generator.DrawBaseGrid();
+        var grid = generator.DrawGrid();
         _boardGrid = new Grid(grid);
     }
 }
