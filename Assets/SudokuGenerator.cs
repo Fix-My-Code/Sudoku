@@ -33,7 +33,6 @@ public class SudokuGenerator
 
         CreateGrid(cells);     
         GenerateGrid(cells);
-        UnityEngine.Debug.Log("υσι");
         
         //DrawBaseGrid(cells);
         //MixGrid(cells);       
@@ -66,7 +65,7 @@ public class SudokuGenerator
         {
             emptyCell.Value = mixedArray[i];
 
-            if (ValidateCell(cells, emptyCell))
+            if (!ValidateCell(cells, emptyCell))
             {
                 continue;
             }
@@ -92,7 +91,7 @@ public class SudokuGenerator
             {
                 if (cells[row, col].Value == 0)
                 {
-                    return cells[row, col];
+                    return new Cell(cells[row, col]);
                 }
             }
         }
