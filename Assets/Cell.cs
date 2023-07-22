@@ -44,6 +44,14 @@ public class Cell
         _value = 0;
     }
 
+    public Cell(Cell cell)
+    {
+        x = cell.x;
+        y = cell.y;
+        _value = cell.Value;
+        cell.IsActive = cell.IsActive;
+    }
+
     public Cell(int x, int y, int value, bool isActive = true)
     {
         this.x = x;
