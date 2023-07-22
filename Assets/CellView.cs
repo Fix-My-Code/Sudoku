@@ -9,6 +9,9 @@ public class CellView : MonoBehaviour, IPointerClickHandler
     private UnityEvent onPointerClick = new UnityEvent();
 
     [SerializeField]
+    private Color _lockedColor;
+
+    [SerializeField]
     private TextMeshProUGUI _text;
     
     public void Initialize(Cell cell, UnityAction callback)
