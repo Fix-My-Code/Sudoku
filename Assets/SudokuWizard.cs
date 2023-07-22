@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class SudokuWizard : MonoBehaviour
 {
     [SerializeField]
@@ -34,7 +33,6 @@ public class SudokuWizard : MonoBehaviour
 
 public class SudokuPresenter
 {
-    
     public Grid BoardGrid => _boardGrid;
     private Grid _boardGrid;
 

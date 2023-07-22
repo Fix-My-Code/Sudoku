@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using Unity.VisualScripting;
 
 public class SudokuGenerator
 {
@@ -25,6 +23,9 @@ public class SudokuGenerator
     private int _index;
     private const int GRID_SIZE = 9;
     private const int BOX_SIZE = 3;
+
+    private const int DIFFICULTY_BASE = 30;
+
     private Random random = new Random();
 
     public Cell[,] DrawGrid()
@@ -33,6 +34,7 @@ public class SudokuGenerator
 
         CreateGrid(cells);     
         GenerateGrid(cells);
+        CleanRandomCell(cells, DIFFICULTY_BASE);
         
         //DrawBaseGrid(cells);
         //MixGrid(cells);       
@@ -50,6 +52,22 @@ public class SudokuGenerator
             }
         }
     }
+
+    private void CleanRandomCell(Cell[,] cells, int difficulty)
+    {
+        for(int i = 0; i < difficulty; i++)
+        {
+            int row = random.Next(0, 8);
+            int col = random.Next(0, 8);
+
+            if (cells[row, col].Value != 0)
+            {
+                cells[row, col].Value = 0;
+            }
+        }
+    }
+
+    #region GenerateGrid
 
     private bool GenerateGrid(Cell[,] cells)
     {
@@ -115,6 +133,10 @@ public class SudokuGenerator
         return numbers;
     }
 
+    #endregion
+
+    #region Validate
+
     private bool ValidateCell(Cell[,] cells, Cell cell)
     {
         return ValidateCol(cells, cell)
@@ -164,7 +186,9 @@ public class SudokuGenerator
         return true;
     }
 
-    #region MIXGRID
+    #endregion
+
+    #region MixGrid
 
     private void DrawBaseGrid(Cell[,] cells)
     {
