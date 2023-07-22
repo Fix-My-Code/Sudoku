@@ -30,9 +30,7 @@ public class SudokuGenerator
 
         CreateGrid(cells);
         DrawBaseGrid(cells);
-
-        TranspositionGrid(cells);
-        //MixGrid(cells);       
+        MixGrid(cells);       
 
         return cells;
     }
@@ -81,7 +79,7 @@ public class SudokuGenerator
             SwapRandomCols
         };
 
-        int numberMixes = random.Next(3, 15);
+        int numberMixes = random.Next(25, 45);
         for (int i = 0; i < numberMixes; i++)
         {
             int functionIndex = random.Next(0, mixFunctions.Length);
@@ -89,21 +87,21 @@ public class SudokuGenerator
         }
     }
 
-    private void SwapRandomRows(Cell[,] cells)
-    {
-        int area = random.Next(0, 3);
-        int row1 = random.Next(0, 3), row2;
-        do { row2 = random.Next(0, 3);
-        } while (row2 != row1);
-        SwapSelectedRows(row1 + area, row2 + area, cells);
-    }
-
     private void SwapRandomCols(Cell[,] cells)
     {
         int area = random.Next(0, 3);
         int row1 = random.Next(0, 3), row2;
         do { row2 = random.Next(0, 3);
-        } while (row2 != row1);
+        } while (row2 == row1);
+        SwapSelectedRows(row1 + area, row2 + area, cells);
+    }
+
+    private void SwapRandomRows(Cell[,] cells)
+    {
+        int area = random.Next(0, 3);
+        int row1 = random.Next(0, 3), row2;
+        do { row2 = random.Next(0, 3);
+        } while (row2 == row1);
         SwapSelectedCols(row1 + area, row2 + area, cells);
     }
 
@@ -111,26 +109,26 @@ public class SudokuGenerator
     {
         for (int i = 0; i < ROW; i++)
         {
-            for (int j = 0+i; j < COL; j++)
+            for (int j = 0 + i; j < COL; j++)
             {
                 Swap(ref cells[i, j], ref cells[j, i]);
             }
         }
     }
 
-    private void SwapSelectedRows(int n, int m, Cell[,] cells) 
+    private void SwapSelectedCols(int n, int m, Cell[,] cells) 
     {
         for(int i = 0; i < COL; i++)
         {
-            //Swap(cells[n, i].Value, cells[m, i].Value);
+            Swap(ref cells[n, i], ref cells[m, i]);
         }
     }
 
-    private void SwapSelectedCols(int n, int m, Cell[,] cells)
+    private void SwapSelectedRows(int n, int m, Cell[,] cells)
     {
         for (int i = 0; i < ROW; i++)
         {
-           // Swap(cells[i, n].Value, cells[i, m].Value);
+           Swap(ref cells[i, n], ref cells[i, m]);
         }
     }
 
