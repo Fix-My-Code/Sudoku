@@ -118,7 +118,7 @@ public class SudokuGenerator
 
     private void SwapSelectedCols(int n, int m, Cell[,] cells) 
     {
-        for(int i = 0; i < COL; i++)
+        for(int i = 0; i < ROW; i++)
         {
             Swap(ref cells[n, i], ref cells[m, i]);
         }
@@ -126,7 +126,7 @@ public class SudokuGenerator
 
     private void SwapSelectedRows(int n, int m, Cell[,] cells)
     {
-        for (int i = 0; i < ROW; i++)
+        for (int i = 0; i < COL; i++)
         {
            Swap(ref cells[i, n], ref cells[i, m]);
         }
