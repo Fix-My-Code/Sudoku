@@ -13,11 +13,14 @@ public class CellView : MonoBehaviour, IPointerClickHandler
 
     [SerializeField]
     private TextMeshProUGUI _text;
+
+    private Cell _data;
     
     public void Initialize(Cell cell, UnityAction callback)
     {
+        _data = cell;
         UpdateView(cell.Value);
-        cell.onValueChanged += UpdateView;
+        _data.onValueChanged += UpdateView;
         onPointerClick.AddListener(callback);
     }
 
@@ -34,5 +37,6 @@ public class CellView : MonoBehaviour, IPointerClickHandler
     private void OnDestroy()
     {
         onPointerClick.RemoveAllListeners();
+        _data.onValueChanged -= UpdateView;
     }
 }

@@ -111,9 +111,9 @@ public class SudokuGenerator
     {
         for (int i = 0; i < ROW; i++)
         {
-            for (int j = 0; j < COL; j++)
+            for (int j = 0+i; j < COL; j++)
             {
-                Swap(cells[i, j].Value, cells[j, i].Value);
+                Swap(ref cells[i, j], ref cells[j, i]);
             }
         }
     }
@@ -122,7 +122,7 @@ public class SudokuGenerator
     {
         for(int i = 0; i < COL; i++)
         {
-            Swap(cells[n, i].Value, cells[m, i].Value);
+            //Swap(cells[n, i].Value, cells[m, i].Value);
         }
     }
 
@@ -130,12 +130,14 @@ public class SudokuGenerator
     {
         for (int i = 0; i < ROW; i++)
         {
-            Swap(cells[i, n].Value, cells[i, m].Value);
+           // Swap(cells[i, n].Value, cells[i, m].Value);
         }
     }
 
-    private void Swap(int a, int b)
+    private void Swap(ref Cell a, ref Cell b)
     {
-        int temp = a; a = b; b = temp;
+        var temp = a.Value; 
+        a.Value = b.Value; 
+        b.Value = temp;
     }
 }
