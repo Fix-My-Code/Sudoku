@@ -30,7 +30,7 @@ public class SudokuGenerator
 
         CreateGrid(cells);
         DrawBaseGrid(cells);
-        MixGrid(cells);       
+        //MixGrid(cells);       
 
         return cells;
     }
@@ -41,7 +41,7 @@ public class SudokuGenerator
         {
             for (var col = 0; col < COL; col++)
             {
-                cells[row, col] = new Cell(row, col, 0);
+                cells[row, col] = new Cell(row, col, 0, true);
             }
         }
     }
@@ -49,7 +49,8 @@ public class SudokuGenerator
     private void DrawBaseGrid(Cell[,] cells)
     {
         int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        const int shift = 3, shiftTransition = 4;
+        var offset = 3;
+        int shift = 3 + offset, shiftTransition = 7+offset;
 
         Index = 0;
         for (int i = 0; i < ROW; i++)
@@ -58,6 +59,7 @@ public class SudokuGenerator
             {
                 Index++;
                 cells[i, j].Value = nums[Index - 1];
+                cells[i, j].IsActive = false;
             }
 
             if ((i + 1) % 3 == 0)
@@ -90,19 +92,19 @@ public class SudokuGenerator
     private void SwapRandomCols(Cell[,] cells)
     {
         int area = random.Next(0, 3);
-        int row1 = random.Next(0, 3), row2;
-        do { row2 = random.Next(0, 3);
+        int row1 = random.Next(1, 4)- 1, row2;
+        do { row2 = random.Next(1, 4)-1;
         } while (row2 == row1);
-        SwapSelectedRows(row1 + area, row2 + area, cells);
+        SwapSelectedCols(row1 + area * 3, row2 + area * 3, cells);
     }
 
     private void SwapRandomRows(Cell[,] cells)
     {
         int area = random.Next(0, 3);
-        int row1 = random.Next(0, 3), row2;
-        do { row2 = random.Next(0, 3);
+        int row1 = random.Next(1, 4)- 1, row2;
+        do { row2 = random.Next(1, 4)-1;
         } while (row2 == row1);
-        SwapSelectedCols(row1 + area, row2 + area, cells);
+        SwapSelectedRows(row1 + area * 3, row2 + area * 3, cells);
     }
 
     private void TranspositionGrid(Cell[,] cells)

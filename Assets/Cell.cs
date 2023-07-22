@@ -1,10 +1,16 @@
 using System;
+using Newtonsoft.Json;
 
+[Serializable]
 public class Cell
 {
+    [JsonIgnore]
     public Action<int> onValueChanged;
 
     public int x, y;
+
+    private int _value;
+    private bool _isActive = true;
 
     public int Value
     {
@@ -18,29 +24,32 @@ public class Cell
 
             if (_value > 9)
             {
-                _value = 1;
+                _value = 0;
             }
 
             onValueChanged?.Invoke(_value);
         }
     }
 
-    private int _value;
+    public bool IsActive
+    {
+        get => _isActive;
+        set => _isActive = value;
+    }
 
     public Cell()
     {
-        this.x = 0;
-        this.y = 0;
-
-        this._value = 0;
+        x = 0;
+        y = 0;
+        _value = 0;
     }
 
-    public Cell(int x, int y, int value)
+    public Cell(int x, int y, int value, bool isActive = true)
     {
         this.x = x;
         this.y = y;
-
-        this._value = value;
+        _isActive = isActive;
+        _value = value;
     }
 
     public static Cell operator ++(Cell cell)

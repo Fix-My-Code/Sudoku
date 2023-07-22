@@ -19,7 +19,7 @@ public class SudokuBoardView : MonoBehaviour
             {
                 var cellObj = Instantiate(cellPrefab, boardParent);
                 var cell = cellObj.GetComponent<CellPresenter>();
-                cell.Initialize(new Cell(row, col, grid.BoardCells[row, col].Value));
+                cell.Initialize(grid.BoardCells[row, col]);
             }
         }
     }

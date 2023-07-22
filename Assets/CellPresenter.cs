@@ -6,7 +6,7 @@ public class CellPresenter : MonoBehaviour
     [SerializeField]
     private CellView _cellView;
 
-    public Cell Cell => _data;
+    public Cell Data => _data;
 
     private Cell _data;
 
@@ -18,6 +18,11 @@ public class CellPresenter : MonoBehaviour
 
     public void UpdateData()
     {
+        if (!Data.IsActive)
+        {
+            return;
+        }
+
         _data++;
     }
 
