@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Linq;
 using System.Diagnostics;
 
 public class SudokuWizard : MonoBehaviour
@@ -31,7 +30,7 @@ public class SudokuWizard : MonoBehaviour
         stopwatch.Start();
         foreach (var cell in sudokuPresenter.BoardGrid.BoardCells)
         {
-            if(!SudokuGenerator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
+            if(!SudokuValidator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
             {
                 return;
             }
