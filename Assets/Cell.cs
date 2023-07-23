@@ -6,7 +6,7 @@ public class Cell
 {
     [JsonIgnore]
     public Action<int> onValueChanged;
-
+    
     public int x, y;
 
     private int _value;

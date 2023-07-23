@@ -2,23 +2,13 @@ using UnityEngine;
 
 public class SudokuBoardView : MonoBehaviour
 {
-    public GameObject cellPrefab;
-    public Transform boardParent;
-
-    private GameObject[,] cells;
-
     public void FillGrid(Grid grid)
     {
-        cells = new GameObject[9, 9];
+        var boardCells = GetComponentsInChildren<CellPresenter>();
 
-        for (int row = 0; row < 9; row++)
+        foreach(var cell in boardCells)
         {
-            for (int col = 0; col < 9; col++)
-            {
-                var cellObj = Instantiate(cellPrefab, boardParent);
-                var cell = cellObj.GetComponent<CellPresenter>();
-                cell.Initialize(grid.BoardCells[row, col]);
-            }
+            cell.Initialize(grid.BoardCells[cell.Data.x, cell.Data.y]);
         }
     }
 }

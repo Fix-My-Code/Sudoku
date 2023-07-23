@@ -8,6 +8,7 @@ public class CellPresenter : MonoBehaviour
 
     public Cell Data => _data;
 
+    [SerializeField]
     private Cell _data;
 
     public void Initialize(Cell cell)
