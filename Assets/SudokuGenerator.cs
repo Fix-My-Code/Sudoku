@@ -23,8 +23,6 @@ public class SudokuGenerator
     private int _index;
     private const int GRID_SIZE = 9;
 
-    private const int DIFFICULTY_BASE = 30;
-
     private Random random = new Random();
 
     public Cell[,] DrawGrid()
@@ -33,7 +31,7 @@ public class SudokuGenerator
 
         CreateGrid(cells);     
         GenerateGrid(cells);
-        CleanRandomCell(cells, DIFFICULTY_BASE);    
+        SudokuCleanCell.CleanRandomCell(cells);    
 
         return cells;
     }
@@ -45,21 +43,6 @@ public class SudokuGenerator
             for (var col = 0; col < GRID_SIZE; col++)
             {
                 cells[row, col] = new Cell(row, col, 0, false);
-            }
-        }
-    }
-
-    private void CleanRandomCell(Cell[,] cells, int difficulty)
-    {
-        for(int i = 0; i < difficulty; i++)
-        {
-            int row = random.Next(0, 9);
-            int col = random.Next(0, 9);
-
-            if (cells[row, col].Value != 0)
-            {
-                cells[row, col].Value = 0;
-                cells[row, col].IsActive = true;
             }
         }
     }
