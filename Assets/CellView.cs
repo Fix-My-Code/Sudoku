@@ -21,9 +21,16 @@ public class CellView : MonoBehaviour, IPointerClickHandler
         _data = cell;
         UpdateView(cell.Value);
         _data.onValueChanged += UpdateView;
-        _text.color = _basedColor;
         onPointerClick.AddListener(callback);
+
+        if (_data.IsActive)
+        {
+            _text.color = Color.black;
+            return;
+        }
+        _text.color = _basedColor;
     }
+
 
     private void UpdateView(int value)
     {

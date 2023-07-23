@@ -153,14 +153,14 @@ public class SudokuGenerator
 
     #region Validate
 
-    private bool ValidateCell(Cell[,] cells, Cell cell)
+    public static bool ValidateCell(Cell[,] cells, Cell cell)
     {
         return ValidateCol(cells, cell)
             && ValidateRow(cells, cell)
             && ValidateBox(cells, cell);
     }
 
-    private bool ValidateCol(Cell[,] cells, Cell cell)
+    private static bool ValidateCol(Cell[,] cells, Cell cell)
     {
         for(int i = 0; i < GRID_SIZE; i++)
         {
@@ -172,7 +172,7 @@ public class SudokuGenerator
         return true;
     }
 
-    private bool ValidateRow(Cell[,] cells, Cell cell)
+    private static bool ValidateRow(Cell[,] cells, Cell cell)
     {
         for (int i = 0; i < GRID_SIZE; i++)
         {
@@ -184,7 +184,7 @@ public class SudokuGenerator
         return true;
     }
 
-    private bool ValidateBox(Cell[,] cells, Cell cell)
+    private static bool ValidateBox(Cell[,] cells, Cell cell)
     {
         int xBox = (cell.x / BOX_SIZE) * BOX_SIZE;
         int yBox = (cell.y / BOX_SIZE) * BOX_SIZE;
