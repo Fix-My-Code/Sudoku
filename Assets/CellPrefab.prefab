@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 3874065105981133326}
   - component: {fileID: 6739895201372900202}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CellPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,6 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cellView: {fileID: 5397697096130758508}
+  _data:
+    x: 0
+    y: 0
 --- !u!114 &5397697096130758508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb5e67095973bf488e9e7f614d7d562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basedColor: {r: 0, g: 1, b: 0.065570354, a: 1}
+  _basedColor: {r: 0, g: 0, b: 0, a: 1}
   _text: {fileID: 632943025309659018}
 --- !u!114 &3874065105981133326
 MonoBehaviour:

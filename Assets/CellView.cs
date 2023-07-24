@@ -25,7 +25,7 @@ public class CellView : MonoBehaviour, IPointerClickHandler
 
         if (_data.IsActive)
         {
-            _text.color = Color.black;
+            _text.color = Color.gray;
             return;
         }
         _text.color = _basedColor;
