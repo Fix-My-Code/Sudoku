@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CellView : MonoBehaviour, IPointerClickHandler
 {
@@ -15,9 +16,12 @@ public class CellView : MonoBehaviour, IPointerClickHandler
     private TextMeshProUGUI _text;
 
     private Cell _data;
-    
+
+    private Image _backgroundImage;
+
     public void Initialize(Cell cell, UnityAction callback)
     {
+        _backgroundImage = GetComponent<Image>();
         _data = cell;
         UpdateView(cell.Value);
         _data.onValueChanged += UpdateView;
@@ -40,6 +44,22 @@ public class CellView : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         onPointerClick?.Invoke();
+    }
+
+    public void Activate()
+    {
+        _backgroundImage.color = Color.green;
+    }
+
+    public void Activate(Color color)
+    {
+        _backgroundImage.color = color;
+        
+    }
+
+    public void Disactivate()
+    {
+        _backgroundImage.color = Color.white;
     }
 
     private void OnDestroy()

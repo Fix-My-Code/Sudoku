@@ -1596,7 +1596,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &74795382
 GameObject:
@@ -2590,7 +2590,7 @@ RectTransform:
   m_Children:
   - {fileID: 1830261120}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6473,6 +6473,7 @@ GameObject:
   - component: {fileID: 316737142}
   - component: {fileID: 316737141}
   - component: {fileID: 316737140}
+  - component: {fileID: 316737145}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -6567,15 +6568,32 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2138467047}
+  - {fileID: 1019604358}
   - {fileID: 863409666}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &316737145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316737139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ef2b59a33cd364a9538acd0c70431f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sudokuWizard: {fileID: 316737140}
+  _boardView: {fileID: 863409665}
+  _sameValueColor: {r: 0, g: 0, b: 0, a: 0}
+  _gridColor: {r: 0, g: 1, b: 0.03773594, a: 1}
 --- !u!1 &319415172
 GameObject:
   m_ObjectHideFlags: 0
@@ -18277,7 +18295,7 @@ RectTransform:
   - {fileID: 1672484331}
   - {fileID: 1455139069}
   m_Father: {fileID: 316737144}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.39166307}
   m_AnchorMax: {x: 1, y: 0.95100003}
@@ -19948,7 +19966,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -21799,13 +21817,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019604353}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 30567579}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 316737144}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -34767,6 +34785,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2091316177506396336, guid: 53e169b5436521b4583f6bbca6c7f41f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5359550746370614577, guid: 53e169b5436521b4583f6bbca6c7f41f, type: 3}
       propertyPath: _data.x
       value: 3
@@ -41551,7 +41573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
+  m_Color: {r: 0.2830189, g: 0.27367392, b: 0.27367392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

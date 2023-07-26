@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 public class SudokuWizard : MonoBehaviour
 {
@@ -19,8 +20,7 @@ public class SudokuWizard : MonoBehaviour
     [ContextMenu("Fill")]
     public void FillBase()
     {
-        sudokuPresenter = new SudokuPresenter();
-        _sudokuBoardView.FillGrid(sudokuPresenter.BoardGrid);
+        sudokuPresenter.cellsView = _sudokuBoardView.FillGrid(sudokuPresenter.BoardGrid);
     }
 
     [ContextMenu("Validate")]
@@ -30,10 +30,10 @@ public class SudokuWizard : MonoBehaviour
         stopwatch.Start();
         foreach (var cell in sudokuPresenter.BoardGrid.BoardCells)
         {
-            if(!SudokuValidator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
-            {
-                return;
-            }
+            //if(!SudokuValidator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
+            //{
+            //    return;
+            //}
         }
         stopwatch.Stop();
         UnityEngine.Debug.Log("Решено" + stopwatch.ElapsedMilliseconds);
@@ -62,6 +62,8 @@ public class SudokuPresenter
         get => _boardGrid;
         set => _boardGrid = value;
     }
+
+    public List<CellPresenter> cellsView;
 
     private Grid _boardGrid;
 

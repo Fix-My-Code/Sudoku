@@ -1,14 +1,28 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SudokuBoardView : MonoBehaviour
 {
-    public void FillGrid(Grid grid)
-    {
-        var boardCells = GetComponentsInChildren<CellPresenter>();
+    private List<CellPresenter> cellsview;
 
-        foreach(var cell in boardCells)
+    public List<CellPresenter> FillGrid(Grid grid)
+    {
+        cellsview = GetComponentsInChildren<CellPresenter>().ToList();
+
+        foreach(var cell in cellsview)
         {
             cell.Initialize(grid.BoardCells[cell.Data.x, cell.Data.y]);
         }
+
+        return cellsview;
+    }
+
+    public void ClearBoard()
+    {
+        cellsview.ForEach(x =>
+        {
+            x.CellView.Disactivate();
+        });
     }
 }
