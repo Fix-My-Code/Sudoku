@@ -1,3 +1,4 @@
+using Meta.Cell;
 using UnityEngine;
 
 public class SudokuCleanCell : MonoBehaviour

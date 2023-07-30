@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Meta.Cell;
 
 public class SudokuWizard : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class SudokuWizard : MonoBehaviour
     [ContextMenu("Fill")]
     public void FillBase()
     {
-        sudokuPresenter.cellsView = _sudokuBoardView.FillGrid(sudokuPresenter.BoardGrid);
+        sudokuPresenter.CellsView = _sudokuBoardView.FillGrid(sudokuPresenter.BoardGrid);
     }
 
     [ContextMenu("Validate")]
@@ -63,7 +64,7 @@ public class SudokuPresenter
         set => _boardGrid = value;
     }
 
-    public List<CellPresenter> cellsView;
+    public List<CellPresenter> CellsView;
 
     private Grid _boardGrid;
 

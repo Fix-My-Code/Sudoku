@@ -1,40 +1,33 @@
 using System;
 using UnityEngine;
 
-public class CellPresenter : MonoBehaviour
+namespace Meta.Cell
 {
-    public static Action<CellPresenter> onActiveCellChanged;
-    public static Action<CellPresenter> onActiveCellValueChanged;
-
-    [SerializeField]
-    private CellView _cellView;
-
-    public Cell Data => _data;
-    public CellView CellView => _cellView;
-
-    [SerializeField]
-    private Cell _data;
-
-    public void Initialize(Cell cell)
+    public class CellPresenter : MonoBehaviour
     {
-        _data = cell;
-        _cellView.Initialize(cell, UpdateData);
-    }
+        public static CellPresenter ActiveCell;
+        public static Action<CellPresenter> onActiveCellChanged;
+        public static Action<CellPresenter> onActiveCellValueChanged;
 
-    public void UpdateData()
-    {
-        onActiveCellChanged?.Invoke(this);
-        onActiveCellValueChanged?.Invoke(this);
+        [SerializeField]
+        private CellView _cellView;
 
-        if (!Data.IsActive)
+        public Cell Data => _data;
+        public CellView CellView => _cellView;
+
+        [SerializeField]
+        private Cell _data;
+
+        public void Initialize(Cell cell)
         {
-            return;
+            _data = cell;
+            _cellView.Initialize(this, SelectCell);
         }
 
-        _data++;
-    }
-
-    private void OnDestroy()
-    {
+        public void SelectCell()
+        {
+            ActiveCell = this;
+            onActiveCellChanged?.Invoke(this);
+        }
     }
 }

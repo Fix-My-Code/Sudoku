@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34414296953a2dc4a8b99bf3d79a750f, type: 3}
+  m_Name: ColorConfig
+  m_EditorClassIdentifier: 
+  activeBackground: {r: 0, g: 1, b: 0.22413802, a: 0.89411765}
+  activeText: {r: 0, g: 0.62263966, b: 1, a: 1}
+  selectableBackground: {r: 1, g: 1, b: 1, a: 1}
+  selectableText: {r: 0, g: 0.62352943, b: 1, a: 1}
+  basedBackground: {r: 1, g: 1, b: 1, a: 1}
+  basedText: {r: 0, g: 0, b: 0, a: 1}
+  sameBackground: {r: 0.9528302, g: 0.05490196, b: 0.05842829, a: 0.7019608}
+  sameText: {r: 0, g: 0, b: 0, a: 1}
+  areaColor: {r: 0.6448024, g: 0.8490566, b: 0.67144424, a: 0.8156863}

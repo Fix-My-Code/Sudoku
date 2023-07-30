@@ -5,66 +5,65 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CellView : MonoBehaviour, IPointerClickHandler
+namespace Meta.Cell
 {
-    private UnityEvent onPointerClick = new UnityEvent();
-
-    [SerializeField]
-    private Color _basedColor;
-
-    [SerializeField]
-    private TextMeshProUGUI _text;
-
-    private Cell _data;
-
-    private Image _backgroundImage;
-
-    public void Initialize(Cell cell, UnityAction callback)
+    public class CellView : MonoBehaviour, IPointerClickHandler
     {
-        _backgroundImage = GetComponent<Image>();
-        _data = cell;
-        UpdateView(cell.Value);
-        _data.onValueChanged += UpdateView;
-        onPointerClick.AddListener(callback);
+        [SerializeField]
+        private TextMeshProUGUI _text;
 
-        if (_data.IsActive)
+        private UnityEvent onPointerClick = new UnityEvent();
+
+        private Color _basedCellText = new Color();
+        private Color _selectableCellText = new Color(); 
+
+        private Image _backgroundImage;
+
+        private CellPresenter _presenter;
+        private Cell _data => _presenter.Data;
+
+        public void Initialize(CellPresenter cellPresenter, UnityAction callback)
         {
-            _text.color = Color.gray;
-            return;
+            _presenter = cellPresenter;
+            SetData();
+
+            onPointerClick.AddListener(callback);
+            _backgroundImage = GetComponent<Image>();
         }
-        _text.color = _basedColor;
-    }
 
+        public void InitializeBasedColor(Color bg, Color text)
+        {
+            _basedCellText = text;
+            _selectableCellText = bg;
 
-    private void UpdateView(int value)
-    {
-        _text.text = value == 0 ? String.Empty : value.ToString();
-    }
+            _text.color = _data.IsActive ? _selectableCellText : _basedCellText;
+        }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        onPointerClick?.Invoke();
-    }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            onPointerClick?.Invoke();
+        }
 
-    public void Activate()
-    {
-        _backgroundImage.color = Color.green;
-    }
+        public void ColorCell(Color color)
+        {
+            _backgroundImage.color = color;
+        }
 
-    public void Activate(Color color)
-    {
-        _backgroundImage.color = color;
-        
-    }
+        private void SetData()
+        {
+            UpdateView(_data.Value);
+            _data.onValueChanged += UpdateView;
+        }
 
-    public void Disactivate()
-    {
-        _backgroundImage.color = Color.white;
-    }
+        private void UpdateView(int value)
+        {
+            _text.text = value == 0 ? String.Empty : value.ToString();
+        }
 
-    private void OnDestroy()
-    {
-        onPointerClick.RemoveAllListeners();
-        _data.onValueChanged -= UpdateView;
+        private void OnDestroy()
+        {
+            onPointerClick.RemoveAllListeners();
+            _data.onValueChanged -= UpdateView;
+        }
     }
 }

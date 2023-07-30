@@ -1,6 +1,5 @@
-using System.Collections;
+using Meta.Cell;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class SudokuManager : MonoBehaviour
@@ -9,70 +8,70 @@ public class SudokuManager : MonoBehaviour
     private SudokuWizard _sudokuWizard;
     [SerializeField]
     private SudokuBoardView _boardView;
-
     [SerializeField]
-    private Color _sameValueColor;
-
-    [SerializeField]
-    private Color _gridColor;
+    private KeyboardManager _keyBoardManager;
 
     private CellPresenter _activeCell;
-
-    private List<CellPresenter> _sameCellValue = new List<CellPresenter>();
+    private AreaValidator _areaValidator = new AreaValidator();
 
     public void Awake()
     {
-        CellPresenter.onActiveCellChanged += ChooseCell;
-        CellPresenter.onActiveCellValueChanged += ColorCellWithSameValue;
+        CellPresenter.onActiveCellChanged += ActiveCell;
+        _keyBoardManager.onKeySelected += ValueChangeHandler;
     }
 
-    public void ChooseCell(CellPresenter cell)
+    public void ActiveCell(CellPresenter cell)
     {
         if (_activeCell != null)
         {
-            _activeCell.CellView.Disactivate();
+            _boardView.ClearBoard();
+            _sameValueCells.Clear();
         }
+
         _activeCell = cell;
-        _activeCell.CellView.Activate();
+        _boardView.ActivateCell(_activeCell);
+        var areaCells = _areaValidator.ValidateCell(_sudokuWizard.sudokuPresenter.CellsView, cell.Data);
+        _boardView.ColorArea(areaCells);
+        ValueChangeHandler(_activeCell.Data.Value);
     }
 
-    public void ColorCellWithSameValue(CellPresenter cell)
+    public void ValueChangeHandler(int value)
     {
-        _boardView.ClearBoard();
-        ValidateCell(_sudokuWizard.sudokuPresenter.cellsView, cell.Data);
-        _sameCellValue.ForEach(x => x.CellView.Activate(_gridColor));
+        _activeCell.Data.Value = value;
+        if(value == 0)
+        {
+            return;
+        }
+
+        if(_sameValueCells != null)
+        {
+            _boardView.ClearCells(_sameValueCells);
+            _boardView.ColorArea(_areaValidator.ValidateCell(_sudokuWizard.sudokuPresenter.CellsView, _activeCell.Data));
+            _sameValueCells.Clear();
+        }
+
+        _sameValueCells = FindSameValue(value);
+        _boardView.ColorSameCells(_sameValueCells);
+    }
+    private List<CellPresenter> _sameValueCells = new List<CellPresenter>();
+    public List<CellPresenter> FindSameValue(int activeValue)
+    {
+        var sameValues = new List<CellPresenter>();
+        var cells = _sudokuWizard.sudokuPresenter.CellsView;
+
+        foreach (var cell in cells)
+        {
+            if(cell.Data.Value == activeValue && !cell.Equals(_activeCell))
+            {
+                sameValues.Add(cell);
+            }
+        }
+
+        return sameValues;
     }
 
-    private const int BOX_SIZE = 3;
-    private const int GRID_SIZE = 9;
-
-    public void ValidateCell(List<CellPresenter> cells, Cell cell)
+    public void OnDestroy()
     {
-        _sameCellValue = new List<CellPresenter>();
-        ValidateBox(cells, cell);
-        ValidateCol(cells, cell);
-        ValidateRow(cells, cell);
-    }
-
-    private void ValidateCol(List<CellPresenter> cells, Cell cell)
-    {
-        var cellsView = cells.Where(x => x.Data.y == cell.y).ToList();
-        _sameCellValue.AddRange(cellsView);
-    }
-
-    private void ValidateRow(List<CellPresenter> cells, Cell cell)
-    {
-        var cellsView = cells.Where(x => x.Data.x == cell.x).ToList();
-        _sameCellValue.AddRange(cellsView);
-    }
-
-    private void ValidateBox(List<CellPresenter> cells, Cell cell)
-    {
-        int xBox = (cell.x / BOX_SIZE) * BOX_SIZE;
-        int yBox = (cell.y / BOX_SIZE) * BOX_SIZE;
-
-        var cellsView = cells.Where(x => x.Data.x >= xBox && x.Data.x < xBox + BOX_SIZE && 
-                                         x.Data.y >= yBox && x.Data.y < yBox + BOX_SIZE).ToList();
-        _sameCellValue.AddRange(cellsView);
+        CellPresenter.onActiveCellChanged -= ActiveCell;
     }
 }

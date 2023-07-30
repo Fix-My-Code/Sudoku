@@ -1,3 +1,4 @@
+using Meta.Cell;
 using System;
 
 public class SudokuGenerator
