@@ -18,6 +18,7 @@ MonoBehaviour:
   selectableText: {r: 0, g: 0.62352943, b: 1, a: 1}
   basedBackground: {r: 1, g: 1, b: 1, a: 1}
   basedText: {r: 0, g: 0, b: 0, a: 1}
-  sameBackground: {r: 0.9528302, g: 0.05490196, b: 0.05842829, a: 0.7019608}
+  sameBackground: {r: 0, g: 0.62352943, b: 1, a: 0.6392157}
   sameText: {r: 0, g: 0, b: 0, a: 1}
   areaColor: {r: 0.6448024, g: 0.8490566, b: 0.67144424, a: 0.8156863}
+  errorColor: {r: 1, g: 0, b: 0, a: 0.80784315}

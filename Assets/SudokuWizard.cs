@@ -16,6 +16,7 @@ public class SudokuWizard : MonoBehaviour
     public void Awake()
     {
         sudokuPresenter = new SudokuPresenter();
+        FillBase();
     }
 
     [ContextMenu("Fill")]
@@ -31,13 +32,14 @@ public class SudokuWizard : MonoBehaviour
         stopwatch.Start();
         foreach (var cell in sudokuPresenter.BoardGrid.BoardCells)
         {
-            //if(!SudokuValidator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
-            //{
-            //    return;
-            //}
+            if(!SudokuValidator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
+            {
+                return;
+            }
         }
         stopwatch.Stop();
         UnityEngine.Debug.Log("Решено" + stopwatch.ElapsedMilliseconds);
+        FillBase();
     }
 
     [ContextMenu("ImportAndFill")]

@@ -22,4 +22,7 @@ public class ColorConfig : ScriptableObject
 
     [Header("Area")]
     public Color areaColor;
+
+    [Header("Error")]
+    public Color errorColor;
 }

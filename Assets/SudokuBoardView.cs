@@ -39,6 +39,11 @@ public class SudokuBoardView : MonoBehaviour
         cells.ForEach(x => x.CellView.ColorCell(_colorConfig.areaColor));
     }
 
+    public void ColorError(List<CellPresenter> cells)
+    {
+        cells.ForEach(x => x.CellView.ColorCell(_colorConfig.errorColor));
+    }
+
     public void ColorSameCells(List<CellPresenter> cells)
     {
         cells.ForEach(x => x.CellView.ColorCell(_colorConfig.sameBackground));

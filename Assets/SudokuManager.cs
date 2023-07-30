@@ -14,6 +14,9 @@ public class SudokuManager : MonoBehaviour
     private CellPresenter _activeCell;
     private AreaValidator _areaValidator = new AreaValidator();
 
+    private List<CellPresenter> _sameValueCells = new List<CellPresenter>();
+    private List<CellPresenter> _areaCells = new List<CellPresenter>();
+
     public void Awake()
     {
         CellPresenter.onActiveCellChanged += ActiveCell;
@@ -30,18 +33,14 @@ public class SudokuManager : MonoBehaviour
 
         _activeCell = cell;
         _boardView.ActivateCell(_activeCell);
-        var areaCells = _areaValidator.ValidateCell(_sudokuWizard.sudokuPresenter.CellsView, cell.Data);
-        _boardView.ColorArea(areaCells);
+        _areaCells = _areaValidator.ValidateCell(_sudokuWizard.sudokuPresenter.CellsView, cell.Data);
+        _boardView.ColorArea(_areaCells);
         ValueChangeHandler(_activeCell.Data.Value);
     }
 
     public void ValueChangeHandler(int value)
     {
         _activeCell.Data.Value = value;
-        if(value == 0)
-        {
-            return;
-        }
 
         if(_sameValueCells != null)
         {
@@ -50,14 +49,19 @@ public class SudokuManager : MonoBehaviour
             _sameValueCells.Clear();
         }
 
-        _sameValueCells = FindSameValue(value);
+        if (value == 0)
+        {
+            return;
+        }
+
+        _sameValueCells = FindSameValue(value, _sudokuWizard.sudokuPresenter.CellsView);
         _boardView.ColorSameCells(_sameValueCells);
+        _boardView.ColorError(FindSameValue(value, _areaCells));
     }
-    private List<CellPresenter> _sameValueCells = new List<CellPresenter>();
-    public List<CellPresenter> FindSameValue(int activeValue)
+
+    public List<CellPresenter> FindSameValue(int activeValue, List<CellPresenter> cells)
     {
         var sameValues = new List<CellPresenter>();
-        var cells = _sudokuWizard.sudokuPresenter.CellsView;
 
         foreach (var cell in cells)
         {
