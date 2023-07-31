@@ -1,5 +1,6 @@
 using Meta.Cell;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SudokuManager : MonoBehaviour
@@ -37,9 +38,17 @@ public class SudokuManager : MonoBehaviour
         _boardView.ColorArea(_areaCells);
         ValueChangeHandler(_activeCell.Data.Value);
     }
+    private bool _penEnabled = true;
+
 
     public void ValueChangeHandler(int value)
     {
+        if (_penEnabled)
+        {
+            _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault().Activate();
+            return;
+        }
+
         _activeCell.Data.Value = value;
 
         if(_sameValueCells != null)

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +14,9 @@ namespace Meta.Cell
         [SerializeField]
         private TextMeshProUGUI _text;
 
+        [SerializeField]
+        public List<PenCell> PenCells = new List<PenCell>();
+
         private UnityEvent onPointerClick = new UnityEvent();
 
         private Color _basedCellText = new Color();
@@ -21,6 +26,7 @@ namespace Meta.Cell
 
         private CellPresenter _presenter;
         private Cell _data => _presenter.Data;
+
 
         public void Initialize(CellPresenter cellPresenter, UnityAction callback)
         {

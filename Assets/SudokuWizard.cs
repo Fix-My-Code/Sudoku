@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Meta.Cell;
+using Palmmedia.ReportGenerator.Core;
 
 public class SudokuWizard : MonoBehaviour
 {
@@ -19,17 +20,24 @@ public class SudokuWizard : MonoBehaviour
         FillBase();
     }
 
+    public void Fill(Grid grid)
+    {
+        sudokuPresenter.BoardGrid = grid;
+        sudokuPresenter.CellsView = _sudokuBoardView.FillGrid(grid);
+    }
+
     [ContextMenu("Fill")]
     public void FillBase()
     {
-        sudokuPresenter.CellsView = _sudokuBoardView.FillGrid(sudokuPresenter.BoardGrid);
+        var generator = new SudokuGenerator();
+        var grid = new Grid(generator.DrawGrid());
+        sudokuPresenter.BoardGrid = grid;
+        sudokuPresenter.CellsView = _sudokuBoardView.FillGrid(grid);
     }
 
     [ContextMenu("Validate")]
     public void ValidateSudoku()
     {
-        Stopwatch stopwatch = Stopwatch.StartNew();
-        stopwatch.Start();
         foreach (var cell in sudokuPresenter.BoardGrid.BoardCells)
         {
             if(!SudokuValidator.ValidateCell(sudokuPresenter.BoardGrid.BoardCells, cell))
@@ -37,15 +45,13 @@ public class SudokuWizard : MonoBehaviour
                 return;
             }
         }
-        stopwatch.Stop();
-        UnityEngine.Debug.Log("Решено" + stopwatch.ElapsedMilliseconds);
         FillBase();
     }
 
     [ContextMenu("ImportAndFill")]
     public void Import()
     {
-        var a = Serializer.Deserialize<Grid>("SudokuPreset.txt");
+        var a = Serializer.DeserializeFromFile<Grid>("SudokuPreset.txt");
         
         sudokuPresenter.BoardGrid = a;
         _sudokuBoardView.FillGrid(a);
@@ -72,8 +78,6 @@ public class SudokuPresenter
 
     public SudokuPresenter()
     {
-        var generator = new SudokuGenerator();
-        var grid = generator.DrawGrid();
-        _boardGrid = new Grid(grid);
+
     }
 }

@@ -10,6 +10,7 @@ public class KeyboardManager : MonoBehaviour
     public Action<int> onKeySelected;
     List<Key<int>> keys = new List<Key<int>>();
 
+
     public void Awake()
     {
         keys.AddRange(GetComponentsInChildren<Key<int>>().ToList());

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public static class Serializer
 {
-    public static T Deserialize<T>(string fileName)
+    public static T DeserializeFromFile<T>(string fileName)
     {
         try
         {
@@ -27,6 +27,12 @@ public static class Serializer
         }
 
         return default(T);
+    }
+
+    public static T DeserializeFromString<T>(string json)
+    {
+        var obj = JsonConvert.DeserializeObject<T>(json);
+        return obj;
     }
 
     public async static void Serialize<T>(T grid, string fileName)
