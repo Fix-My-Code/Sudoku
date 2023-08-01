@@ -7,9 +7,9 @@ public class PenCell : MonoBehaviour
     public int Value;
     private bool _isActive;
 
-    public void Activate()
+    public void Activate(bool state)
     {
-        _isActive = _isActive ? false : true;
+        _isActive = state;
         gameObject.SetActive(_isActive);
     }
 }

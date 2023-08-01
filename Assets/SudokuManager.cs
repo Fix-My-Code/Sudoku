@@ -43,10 +43,13 @@ public class SudokuManager : MonoBehaviour
 
     public void ValueChangeHandler(int value)
     {
-        if (_penEnabled)
+        if (Globals.isPenEnabled && value != 0)
         {
-            _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault().Activate();
+            _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault().Activate(true);
             return;
+        } else if(Globals.isPenEnabled)
+        {
+            _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault().Activate(false);
         }
 
         _activeCell.Data.Value = value;
@@ -81,6 +84,11 @@ public class SudokuManager : MonoBehaviour
         }
 
         return sameValues;
+    }
+
+    public void PenActive()
+    {
+        Globals.isPenEnabled = Globals.isPenEnabled ? false : true;
     }
 
     public void OnDestroy()
