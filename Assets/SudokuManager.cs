@@ -38,52 +38,58 @@ public class SudokuManager : MonoBehaviour
         _boardView.ColorArea(_areaCells);
         ValueChangeHandler(_activeCell.Data.Value);
     }
-    private bool _penEnabled = true;
-
 
     public void ValueChangeHandler(int value)
     {
-        if (Globals.isPenEnabled && value != 0)
+        if (!_activeCell.Data.IsActive)
         {
-            _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault().Activate(true);
             return;
-        } else if(Globals.isPenEnabled)
-        {
-            _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault().Activate(false);
-        }
-
-        _activeCell.Data.Value = value;
-
-        if(_sameValueCells != null)
-        {
-            _boardView.ClearCells(_sameValueCells);
-            _boardView.ColorArea(_areaValidator.ValidateCell(_sudokuWizard.sudokuPresenter.CellsView, _activeCell.Data));
-            _sameValueCells.Clear();
         }
 
         if (value == 0)
         {
+            DeactivatePenCells();
             return;
         }
 
-        _sameValueCells = FindSameValue(value, _sudokuWizard.sudokuPresenter.CellsView);
-        _boardView.ColorSameCells(_sameValueCells);
-        _boardView.ColorError(FindSameValue(value, _areaCells));
-    }
-
-    public List<CellPresenter> FindSameValue(int activeValue, List<CellPresenter> cells)
-    {
-        var sameValues = new List<CellPresenter>();
-
-        foreach (var cell in cells)
+        if (Globals.isPenEnabled && _activeCell.Data.Value == 0)
         {
-            if(cell.Data.Value == activeValue && !cell.Equals(_activeCell))
-            {
-                sameValues.Add(cell);
-            }
+            ActivatePenCellWithValue(value);
+            return;
         }
 
-        return sameValues;
+        _activeCell.Data.Value = value;
+
+        if (_sameValueCells != null)
+        {
+            _boardView.ClearCells(_sameValueCells);
+            _sameValueCells.Clear();
+        }
+
+        if (value != 0)
+        {
+            DeactivatePenCells();
+            var areaCells = _areaValidator.ValidateCell(_sudokuWizard.sudokuPresenter.CellsView, _activeCell.Data);
+            _boardView.ColorArea(areaCells);
+            _sameValueCells = FindSameValue(value, _sudokuWizard.sudokuPresenter.CellsView);
+            _boardView.ColorSameCells(_sameValueCells);
+            _boardView.ColorError(FindSameValue(value, _areaCells));
+        }
+    }
+
+    private void DeactivatePenCells()
+    {
+        _activeCell.CellView.PenCells.ForEach(x => x.Activate(false));
+    }
+
+    private void ActivatePenCellWithValue(int value)
+    {
+        _activeCell.CellView.PenCells.Where(x => x.Value == value).FirstOrDefault()?.Activate();
+    }
+
+    private List<CellPresenter> FindSameValue(int value, List<CellPresenter> cells)
+    {
+        return cells.Where(x => x.Data.Value == value).ToList();
     }
 
     public void PenActive()

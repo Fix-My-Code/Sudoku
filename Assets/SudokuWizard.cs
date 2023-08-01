@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Diagnostics;
 using System.Collections.Generic;
 using Meta.Cell;
-using Palmmedia.ReportGenerator.Core;
 
 public class SudokuWizard : MonoBehaviour
 {
