@@ -18,6 +18,7 @@ public class SudokuCleanCell : MonoBehaviour
                 cells[row, col].IsActive = true;
                 continue;
             }
+
             i--;
         }
     }
