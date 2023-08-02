@@ -39,7 +39,7 @@ public class SudokuGenerator
             amountGeneration++;
         } while (!IsSingleSolution(cells) && ResetZero(cells));
 
-        Debug.Log("Количество генераций:" + amountGeneration);
+        Debug.Log("Количество генераций: " + amountGeneration);
 
         //SudokuCleanCell.CleanRandomCell(cells);    
 
@@ -55,6 +55,18 @@ public class SudokuGenerator
                 cells[row, col] = new Cell(row, col, 0, false);
             }
         }
+    }
+
+    private bool ResetZero(Cell[,] cells)
+    {
+        for (var row = 0; row < GRID_SIZE; row++)
+        {
+            for (var col = 0; col < GRID_SIZE; col++)
+            {
+                cells[row, col].Value = 0;
+            }
+        }
+        return true;
     }
 
     #region GenerateGrid
@@ -214,18 +226,6 @@ public class SudokuGenerator
             }
         }
 
-        return true;
-    }
-
-    private bool ResetZero(Cell[,] cells)
-    {
-        for (var row = 0; row < GRID_SIZE; row++)
-        {
-            for (var col = 0; col < GRID_SIZE; col++)
-            {
-                cells[row, col].Value = 0;
-            }
-        }
         return true;
     }
 
